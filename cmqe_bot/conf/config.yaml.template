@@ -1,0 +1,11 @@
+github:
+  org: organization
+  repo: repository
+  tracked_dir: tracked_directory
+  login:
+    user: username
+    password: password
+polarion:
+  project: project_id
+users: [ # list of users to follow
+]

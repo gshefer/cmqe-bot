@@ -1,0 +1,7 @@
+*.pyc
+cmqe_bot/conf/config.yaml
+.pylarion
+.project
+.pydevproject
+.settings/
+
