@@ -42,7 +42,7 @@ def get_automation_statuses_from_github():
     """Getting the automation statuses from GitHub by going over the merged code and the
     pull requests, for each pull request it checks the status of the PR.
     Returns:
-        LUT (dict) of the automation statuses (not including NOTAUTOMATED).
+        LUT (dict) of the automation statuses (not including NOT_AUTOMATED).
     """
     from cmqe_bot.git_stat.pull_request_status import PullRequestStatusCollection, PR_STATUSES
     statuses = PullRequestStatusCollection(logins=conf().users)

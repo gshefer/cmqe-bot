@@ -11,7 +11,7 @@ class ExtendedEnum(Enum):
 
 class POLARION_CASE_AUTOMATION_STATUSES(ExtendedEnum):
     MANUALONLY = 'manualonly'
-    NOTAUTOMATED = 'notautomated'
+    NOT_AUTOMATED = 'notautomated'
     INPROGRESS = 'inprogress'
     INREVIEW = 'inreview'
     AUTOMATED = 'automated'

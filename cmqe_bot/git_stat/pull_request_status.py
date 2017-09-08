@@ -19,7 +19,9 @@ class PR_STATUSES(ExtendedEnum):
 
 
 class PullRequestStatus(object):
-
+    """Pull Request status includes a bunch of the properties and the information
+    about the pull request.
+    """
     def __init__(self, pull_request):
 
         self._pull_request = pull_request
@@ -124,9 +126,14 @@ class PullRequestStatus(object):
 
 
 class PullRequestStatusCollection(object):
-
+    """A collection object that collecting all the pull requests of the specified logins.
+    """
     def __init__(self, *args, **kwargs):
-
+        """
+        Args:
+            * state (optional): (str) the state of the pull requests to grab (open || closed).
+            * logins (optional): (list || tuple) a list of the logins.
+        """
         state = kwargs.get('state', 'open')
         logins = kwargs.get('logins', conf().users)
 

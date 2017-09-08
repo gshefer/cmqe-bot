@@ -13,6 +13,18 @@ from cmqe_bot.common.constants import POLARION_CASE_AUTOMATION_STATUSES
 from cmqe_bot.conf import conf
 
 
+"""
+Updating polarion test cases status according to the pull requests and the current
+tests in master.
+Fetching the following values:
+    * Automation - Searching for the polarion cases (as comment or marker) in each test file.
+                   If it's in master - Automated, if it's in PR, define the automation status
+                   according to the PR status.
+    * Automation Script.
+    # TODO: Add fetching of the Automation assignee.
+"""
+
+
 def parse_cmd_line():
     parser = argparse.ArgumentParser(argument_default=None)
     parser.add_argument('--ignore-automated', default=False,
@@ -88,7 +100,7 @@ def main():
                  POLARION_CASE_AUTOMATION_STATUSES.NOT_AUTOMATED,
                  POLARION_CASE_AUTOMATION_STATUSES.INPROGRESS):
             needs_update = (set_field(test_case, 'caseautomation',
-                                      POLARION_CASE_AUTOMATION_STATUSES.NOTAUTOMATED.value)
+                                      POLARION_CASE_AUTOMATION_STATUSES.NOT_AUTOMATED.value)
                             or needs_update)
 
         if needs_update:
