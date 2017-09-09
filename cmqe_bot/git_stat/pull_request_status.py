@@ -140,9 +140,8 @@ class PullRequestStatusCollection(object):
         logins = [login.lower() for login in logins]
 
         self.pr_statuses = [
-            PullRequestStatus(pr) for pr in env().REPO.get_pulls()
+            PullRequestStatus(pr) for pr in env().REPO.get_pulls(state=state)
             if pr.user.login.lower() in logins
-            and pr.state == state
         ]
 
     def __iter__(self):

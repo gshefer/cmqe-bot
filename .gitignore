@@ -4,4 +4,7 @@ cmqe_bot/conf/config.yaml
 .project
 .pydevproject
 .settings/
-
+bin
+lib
+lib64
+include
