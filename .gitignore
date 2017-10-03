@@ -8,3 +8,6 @@ bin
 lib
 lib64
 include
+.cache
+pip-selfcheck.json
+

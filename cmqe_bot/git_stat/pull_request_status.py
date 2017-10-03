@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-import dateparser
+import json
 import re
-import requests
 import time
+
+import dateparser
+import requests
 
 from . import env
 from cmqe_bot.conf import conf
@@ -97,24 +99,12 @@ class PullRequestStatus(object):
         return comments
 
     @property
-    def prt_results(self):
-
-        check_patterns = map(
-            lambda s: re.compile(s, re.IGNORECASE | re.UNICODE),
-            [
-                r'ci/(downstream-\d+z)[\s\b/\S.<>\w\d]+?(?<=(failure|success))',
-                # r'ci/(upstream)[\s\b/\S.<>\w\d]+?(?<=(failure|success))',
-                r'code/(lint)[\s\b/\S.<>\w\d]+?([\w\s]+(?=fail|succe)[\w\s]+)',
-                # TODO: change to use HTML parser and get also quantified code results
-            ]
-        )
-        checks = []
-        for check_pat in check_patterns:
-            checks.extend(re.findall(check_pat, self.html))
-
-        checks = list(set(set(checks)).union())
-
-        return checks
+    def test_results(self):
+        tests = json.loads(requests.get(self._pull_request.raw_data['statuses_url']).content)
+        out = {}
+        for test in tests:
+            out[test['context']] = test['description']
+        return out
 
     @property
     def owner(self):
@@ -151,7 +141,6 @@ class PullRequestStatusCollection(object):
         out = []
         for prs in self:
             lst_cmnt = prs.last_review_comment
-            prt_results = prs.prt_results
             age_total_seconds = int(prs.age.total_seconds())
             days_ago = age_total_seconds / 86400
             hours_ago = (age_total_seconds - days_ago * 86400) / 3600
@@ -164,7 +153,7 @@ class PullRequestStatusCollection(object):
                     'days': days_ago,
                     'hours': hours_ago
                 },
-                'prt': {r[0]: r[1] for r in prt_results},
+                'tests': prs.test_results,
                 'last_code_update': prs.last_code_update.isoformat()
             })
             if lst_cmnt:
