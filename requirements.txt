@@ -1,2 +1,5 @@
 pygithub
 pyyaml
+dateparser
+requests
+Enum
