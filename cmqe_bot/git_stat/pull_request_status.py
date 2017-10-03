@@ -174,11 +174,3 @@ class PullRequestStatusCollection(object):
                     'updated_at': lst_cmnt.updated_at.isoformat()
                 }
         return out
-
-
-if __name__ == '__main__':
-
-    # TODO: Move this test to test directory once created
-
-    pr_statuses = PullRequestStatusCollection()
-    pr_statuses.dump()
