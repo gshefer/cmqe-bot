@@ -51,7 +51,7 @@ def get_automation_statuses_from_github():
     for status in statuses:
         diff = requests.get(status.diff_url).content
         pids = extract_polarion_case_ids(diff)
-        if status.status == PR_STATUSES.RFR.value:
+        if status.status == PR_STATUSES.RFR:
             review_pids.update(pids)
         else:
             progress_pids.update(pids)

@@ -87,7 +87,7 @@ def main():
         for status, cases in automation_stats.items():
 
             if case_id in cases:
-                needs_update = (set_field(test_case, 'caseautomation', status.value)
+                needs_update = (set_field(test_case, 'caseautomation', status)
                                 or needs_update)
                 script_url = files_by_cases.get(case_id, None)
                 needs_update = set_field(test_case, 'automation_script', script_url) or needs_update
@@ -100,7 +100,7 @@ def main():
                  POLARION_CASE_AUTOMATION_STATUSES.NOT_AUTOMATED,
                  POLARION_CASE_AUTOMATION_STATUSES.INPROGRESS):
             needs_update = (set_field(test_case, 'caseautomation',
-                                      POLARION_CASE_AUTOMATION_STATUSES.NOT_AUTOMATED.value)
+                                      POLARION_CASE_AUTOMATION_STATUSES.NOT_AUTOMATED)
                             or needs_update)
 
         if needs_update:
